@@ -17,3 +17,7 @@ console.log(`null: ${tipoNulo}`);
 console.log(`undefined: ${tipoIndefinido}`);
 console.log(`symbol: ${String(tipoSymbol)}`); // Symbol precisa ser convertido para string para ser exibido.
 console.log(`bigint: ${tipoBigInt}`);
+
+let minhaVariavel = Symbol("meuSymbol");
+
+console.log(`A variável é um Symbol? ${typeof minhaVariavel === 'symbol'}`);
