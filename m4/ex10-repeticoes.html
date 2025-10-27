@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador Kawaii de Letras</title>
+    <style>
+        /* Estilo Kawaii/Sanrio */
+        @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+
+        :root {
+            /* Cores Sanrio */
+            --cor-rosa-melody: #FFC0CB;
+            --cor-preto-kuromi: #333333;
+            --cor-branco-kitty: #FFFFFF;
+            --cor-vermelho-kitty: #FF0000;
+            --cor-roxo-kuromi: #9370DB;
+            --cor-fundo: #FEEAEB; /* Rosa bem clarinho */
+        }
+
+        body {
+            font-family: 'Cherry Bomb One', cursive; /* Fonte fofa */
+            background-color: var(--cor-fundo);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--cor-preto-kuromi);
+        }
+
+        .container {
+            background-color: var(--cor-branco-kitty);
+            border: 8px solid var(--cor-rosa-melody);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 10px 10px 0px var(--cor-roxo-kuromi);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        h1 {
+            color: var(--cor-vermelho-kitty);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px var(--cor-rosa-melody);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border: 4px solid var(--cor-preto-kuromi);
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-family: inherit;
+            box-sizing: border-box;
+            background-color: var(--cor-rosa-melody);
+            color: var(--cor-preto-kuromi);
+        }
+
+        button {
+            background-color: var(--cor-roxo-kuromi);
+            color: var(--cor-branco-kitty);
+            padding: 10px 20px;
+            border: 4px solid var(--cor-preto-kuromi);
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-family: inherit;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        button:hover {
+            background-color: #A98EE8; /* Roxo um pouco mais claro */
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 6px 6px 0px var(--cor-roxo-kuromi);
+        }
+
+        #resultado {
+            margin-top: 25px;
+            text-align: left;
+            padding: 15px;
+            border: 3px dashed var(--cor-vermelho-kitty);
+            border-radius: 10px;
+            background-color: #FFF0F5; /* Branco com um toque rosa */
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Contador Kawaii Sanrio ✨</h1>
+        <p>Digite uma frase para ver a contagem de cada letra</p>
+
+        <input type="text" id="fraseInput" placeholder="Ex: Eu amo Kuromi e My Melody">
+        <button onclick="contarLetras()">Contar Letras!</button>
+
+        <div id="resultado">
+            <p>Seu resultado aparecerá aqui...</p>
+        </div>
+    </div>
+
+    <script>
+        function contarLetras() {
+            
+            const input = document.getElementById('fraseInput').value;
+            
+            
+            const fraseLimpa = input.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+            
+            let contagem = {};
+
+            
+            for (const letra of fraseLimpa) {
+                if (contagem[letra]) {
+                    contagem[letra]++;
+                } 
+                else {
+                    contagem[letra] = 1;
+                }
+            }
+            exibirResultado(contagem);
+        }
+
+        function exibirResultado(contagemObj) {
+            const resultadoDiv = document.getElementById('resultado');
+            let htmlContent = '';
+
+            if (Object.keys(contagemObj).length === 0) {
+                htmlContent = '<p>Nada para contar! Tente digitar algo primeiro. 🥺</p>';
+            } else {
+                htmlContent += '<h2>💖 Ocorrências por Caractere:</h2>';
+                htmlContent += '<p style="font-size: 1.1em; word-break: break-word;">';
+
+                
+                for (const letra in contagemObj) {
+                    const contagem = contagemObj[letra];
+                    htmlContent += `<strong>${letra}</strong>: ${contagem} vezes | `;
+                }
+                
+                htmlContent = htmlContent.slice(0, -3); 
+                htmlContent += '</p>';
+            }
+
+            resultadoDiv.innerHTML = htmlContent;
+        }
+    </script>
+</body>
+</html>
